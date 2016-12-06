@@ -9,15 +9,23 @@ function dirTree(filename) {
     
     var stats = fs.lstatSync(filename),
         info = {
-            // path: filename,
+            "path": filename,
             "name": path.basename(filename)
         };
-
+        // console.log(stats);
     if (stats.isDirectory()) {
-        // info.type = "folder";
+        info.type = "Folder";
         info["children"] = fs.readdirSync(filename).map(function(child) {
             return dirTree(filename + '/' + child);
         });
+    } else {
+        // Assuming it's a file. In real life it could be a symlink or
+        // something else!
+        info.type = "File";
+        // size in MBs
+        info.size = stats.size / 1000000.0;
+        info.mtime = stats.mtime;
+
     }
 
     return info;

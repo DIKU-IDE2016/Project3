@@ -1,118 +1,258 @@
 {
+  "path": "IDE",
   "name": "IDE",
+  "type": "Folder",
   "children": [
+
     {
-      "name": "Course_book.pdf"
+      "path": "IDE/IDE_Book.pdf",
+      "name": "IDE_Book.pdf",
+      "type": "File",
+      "size": 11.722809,
+      "mtime": "2016-11-29T07:19:21.000Z"
     },
     {
+      "path": "IDE/Project1",
       "name": "Project1",
+      "type": "Folder",
       "children": [
         {
-          "name": "README.md"
+          "path": "IDE/Project1/README.md",
+          "name": "README.md",
+          "type": "File",
+          "size": 0.00001,
+          "mtime": "2016-11-22T14:14:31.000Z"
         },
         {
-          "name": "bff.gif"
+          "path": "IDE/Project1/bff.gif",
+          "name": "bff.gif",
+          "type": "File",
+          "size": 4.629263,
+          "mtime": "2016-11-22T14:21:23.000Z"
         },
         {
-          "name": "ed_viz.png"
+          "path": "IDE/Project1/ed_viz.png",
+          "name": "ed_viz.png",
+          "type": "File",
+          "size": 0.054748,
+          "mtime": "2016-11-29T09:13:17.000Z"
         },
         {
-          "name": "ehsan_viz.png"
+          "path": "IDE/Project1/ehsan_viz.png",
+          "name": "ehsan_viz.png",
+          "type": "File",
+          "size": 1.139838,
+          "mtime": "2016-11-29T09:13:17.000Z"
         },
         {
-          "name": "gb_viz.PNG"
+          "path": "IDE/Project1/gb_viz.PNG",
+          "name": "gb_viz.PNG",
+          "type": "File",
+          "size": 0.008484,
+          "mtime": "2016-11-30T15:33:04.000Z"
         },
         {
-          "name": "index.html"
+          "path": "IDE/Project1/index.html",
+          "name": "index.html",
+          "type": "File",
+          "size": 0.005448,
+          "mtime": "2016-11-30T15:33:04.000Z"
         },
         {
-          "name": "jscode.js"
+          "path": "IDE/Project1/jscode.js",
+          "name": "jscode.js",
+          "type": "File",
+          "size": 0.000812,
+          "mtime": "2016-11-29T09:13:17.000Z"
         },
         {
-          "name": "style.css"
+          "path": "IDE/Project1/style.css",
+          "name": "style.css",
+          "type": "File",
+          "size": 0.003556,
+          "mtime": "2016-11-30T15:33:04.000Z"
         }
       ]
     },
     {
+      "path": "IDE/Project2",
       "name": "Project2",
+      "type": "Folder",
       "children": [
         {
+          "path": "IDE/Project2/d3",
           "name": "d3",
+          "type": "Folder",
           "children": [
             {
-              "name": "API.md"
+              "path": "IDE/Project2/d3/API.md",
+              "name": "API.md",
+              "type": "File",
+              "size": 0.121816,
+              "mtime": "2016-11-22T16:12:04.000Z"
             },
             {
-              "name": "CHANGES.md"
+              "path": "IDE/Project2/d3/CHANGES.md",
+              "name": "CHANGES.md",
+              "type": "File",
+              "size": 0.125639,
+              "mtime": "2016-10-20T09:51:08.000Z"
             },
             {
-              "name": "LICENSE"
+              "path": "IDE/Project2/d3/LICENSE",
+              "name": "LICENSE",
+              "type": "File",
+              "size": 0.001475,
+              "mtime": "2016-06-27T10:08:42.000Z"
             },
             {
-              "name": "README.md"
+              "path": "IDE/Project2/d3/README.md",
+              "name": "README.md",
+              "type": "File",
+              "size": 0.002291,
+              "mtime": "2016-11-02T14:31:50.000Z"
             },
             {
-              "name": "d3.js"
+              "path": "IDE/Project2/d3/d3.js",
+              "name": "d3.js",
+              "type": "File",
+              "size": 0.450571,
+              "mtime": "2016-11-22T16:31:48.000Z"
             },
             {
-              "name": "d3.min.js"
+              "path": "IDE/Project2/d3/d3.min.js",
+              "name": "d3.min.js",
+              "type": "File",
+              "size": 0.213917,
+              "mtime": "2016-11-22T16:31:52.000Z"
             }
           ]
         },
         {
-          "name": "dataset.csv"
+          "path": "IDE/Project2/dataset.csv",
+          "name": "dataset.csv",
+          "type": "File",
+          "size": 0.008356,
+          "mtime": "2016-12-05T18:13:12.000Z"
         },
         {
-          "name": "index.html"
+          "path": "IDE/Project2/index.html",
+          "name": "index.html",
+          "type": "File",
+          "size": 0.011234,
+          "mtime": "2016-12-06T12:00:25.000Z"
         },
         {
-          "name": "script.js"
+          "path": "IDE/Project2/script.js",
+          "name": "script.js",
+          "type": "File",
+          "size": 0.013851,
+          "mtime": "2016-12-06T12:00:38.000Z"
         },
         {
-          "name": "style.css"
+          "path": "IDE/Project2/style.css",
+          "name": "style.css",
+          "type": "File",
+          "size": 0.001768,
+          "mtime": "2016-12-05T19:02:20.000Z"
         }
       ]
     },
     {
+      "path": "IDE/Project3",
       "name": "Project3",
+      "type": "Folder",
       "children": [
         {
+          "path": "IDE/Project3/d3",
           "name": "d3",
+          "type": "Folder",
           "children": [
             {
-              "name": "API.md"
+              "path": "IDE/Project3/d3/API.md",
+              "name": "API.md",
+              "type": "File",
+              "size": 0.121816,
+              "mtime": "2016-11-22T16:12:04.000Z"
             },
             {
-              "name": "CHANGES.md"
+              "path": "IDE/Project3/d3/CHANGES.md",
+              "name": "CHANGES.md",
+              "type": "File",
+              "size": 0.125639,
+              "mtime": "2016-10-20T09:51:08.000Z"
             },
             {
-              "name": "LICENSE"
+              "path": "IDE/Project3/d3/LICENSE",
+              "name": "LICENSE",
+              "type": "File",
+              "size": 0.001475,
+              "mtime": "2016-06-27T10:08:42.000Z"
             },
             {
-              "name": "README.md"
+              "path": "IDE/Project3/d3/README.md",
+              "name": "README.md",
+              "type": "File",
+              "size": 0.002291,
+              "mtime": "2016-11-02T14:31:50.000Z"
             },
             {
-              "name": "d3.js"
+              "path": "IDE/Project3/d3/d3.js",
+              "name": "d3.js",
+              "type": "File",
+              "size": 0.450571,
+              "mtime": "2016-11-22T16:31:48.000Z"
             },
             {
-              "name": "d3.min.js"
+              "path": "IDE/Project3/d3/d3.min.js",
+              "name": "d3.min.js",
+              "type": "File",
+              "size": 0.213917,
+              "mtime": "2016-11-22T16:31:52.000Z"
             }
           ]
         },
         {
-          "name": "dataset.json"
+          "path": "IDE/Project3/dataset.json",
+          "name": "dataset.json",
+          "type": "File",
+          "size": 0.002066,
+          "mtime": "2016-12-06T13:31:57.000Z"
         },
         {
-          "name": "index.html"
+          "path": "IDE/Project3/ex.json",
+          "name": "ex.json",
+          "type": "File",
+          "size": 0.016982,
+          "mtime": "2016-12-06T14:28:56.000Z"
         },
         {
-          "name": "makeDataset.js"
+          "path": "IDE/Project3/index.html",
+          "name": "index.html",
+          "type": "File",
+          "size": 0.003103,
+          "mtime": "2016-12-06T14:45:32.000Z"
         },
         {
-          "name": "script.js"
+          "path": "IDE/Project3/makeDataset.js",
+          "name": "makeDataset.js",
+          "type": "File",
+          "size": 0.001084,
+          "mtime": "2016-12-06T14:27:45.000Z"
         },
         {
-          "name": "style.css"
+          "path": "IDE/Project3/script.js",
+          "name": "script.js",
+          "type": "File",
+          "size": 0.007714,
+          "mtime": "2016-12-06T14:48:32.000Z"
+        },
+        {
+          "path": "IDE/Project3/style.css",
+          "name": "style.css",
+          "type": "File",
+          "size": 0.001123,
+          "mtime": "2016-12-06T13:56:19.000Z"
         }
       ]
     }

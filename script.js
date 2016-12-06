@@ -22,11 +22,19 @@ function openTab(evt, cityName) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 
+// inspiration: https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd
+
 d3.json("dataset.json", function(error, treeData) {
 	if (error){
 
 		console.log(error);
 	} else {
+		// Define 'div' for tooltips
+		var div = d3.select("body")
+			.append("div")  // declare the tooltip div 
+			.attr("class", "tooltip")              // apply the 'tooltip' class
+			.style("opacity", 0);                  // set the opacity to nil
+
 		    // Set the dimensions and margins of the diagram
 		var margin = {top: 20, right: 20, bottom: 20, left: 40},
 		    width = 1000 - margin.left - margin.right,
@@ -92,14 +100,52 @@ d3.json("dataset.json", function(error, treeData) {
 		      .attr("transform", function(d) {
 		        return "translate(" + source.y0 + "," + source.x0 + ")";
 		    })
-		    .on('click', click);
+		    .on('click', click)
+			.on("mouseover", function(d) {
+				
+				var text = "";
+
+				if (d.data.type ==="File") {
+					text += "<strong>Type: </strong>" + d.data.type + "<br/>";
+					text += "<strong>Path: </strong>" + d.data.path + "<br/>";
+					text += "<strong>Size: </strong>" + d.data.size + " MB<br/>";
+					text += "<strong>Last edited: </strong>" + d.data.mtime;
+				} else {
+					text += "<strong>Type: </strong>" + d.data.type + "<br/>";
+					text += "<strong>Path: </strong>" + d.data.path;
+				}
+
+			 //  var g = d3.select(this); // The node
+			 //  // The class is used to remove the additional text later
+			 //  var info = g.append('html')
+			 //     .classed('info', true)
+			 //     .attr('x', 13)
+			 //     .attr('y', 20)
+			 //     .html(text);
+            div.transition()
+				.duration(500)	
+				.style("opacity", 0);
+			div.transition()
+				.duration(200)	
+				.style("opacity", 1.0);	
+			div	.html(text)	 
+				.style("left", (d3.event.pageX+15) + "px")			 
+				.style("top", (d3.event.pageY - 28) + "px");
+
+			})
+			.on("mouseout", function(d) {
+			  // Remove the info text on mouse out.
+              div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+   			});
 
 		  // Add Circle for the nodes
 		  nodeEnter.append('circle')
 		      .attr('class', 'node')
 		      .attr('r', 1e-6)
 		      .style("fill", function(d) {
-		          return d._children ? "lightsteelblue" : "#fff";
+		          return d._children ? "#fc9272" : "#fee0d2";
 		      });
 
 		  // Add labels for the nodes
@@ -127,7 +173,7 @@ d3.json("dataset.json", function(error, treeData) {
 		  nodeUpdate.select('circle.node')
 		    .attr('r', 10)
 		    .style("fill", function(d) {
-		        return d._children ? "lightsteelblue" : "#fff";
+		        return d._children ? "#fc9272" : "#fee0d2";
 		    })
 		    .attr('cursor', 'pointer');
 
@@ -202,6 +248,7 @@ d3.json("dataset.json", function(error, treeData) {
 		        d._children = d.children;
 		        d.children = null;
 		      } else {
+
 		        d.children = d._children;
 		        d._children = null;
 		      }

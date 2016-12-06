@@ -6,20 +6,33 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<style>
 		.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
-}
+		  fill: #fee0d2;
+		  stroke: #de2d26;
+		  stroke-width: 3px;
+		}
 
-.node text {
-  font: 12px sans-serif;
-}
+		.node text {
+		  font: 13px sans-serif;
+		}
 
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
-}
+		.link {
+		  fill: none;
+		  stroke: #ccc;
+		  stroke-width: 2px;
+		}
+		div.tooltip {
+		  position: absolute;	
+		  /*text-align: center;	*/
+		  width: 250px;	
+		  height: 65px;		
+		  padding: 2px;	
+		  font: 12px sans-serif;	
+		  background: #fee0d2;	
+		  border: 0px;					
+		  border-radius: 8px;
+		 /*  pointer-events: none;	This line needs to be removed */
+			
+		}
 		</style>
 		<title>IDE Project 3</title>
 		<script type="text/javascript" src="d3/d3.min.js"></script>
@@ -56,30 +69,42 @@
 				<h3>Discussion</h3>
 				<table class="discussion">
 					<tr>
+						<td class="first"><b>Dataset</b></td>
+						<td>
+						<p>
+						Find a data set for which it is natural to use a network or tree visualization.
+
+
+						We made this dataset ourselves with the help of a small Node.JS script that lists the directories recursively in a JSON format. 
+
+						</p>
+						</td>
+					</tr>
+					<tr>
 						<td class="first"><b>Motivation</b></td>
 						<td>
 							
 						</td>
 					</tr>
 					<tr>
-						<td class="first"><b>Method</b></td>
+						<td class="first"><b>Improvements</b></td>
 						<td>
-							
+							it could move further, 
+							when clicking on type=file, show some popup with attributes
+							on mouseover show attributes
 						</td>
 					</tr>
 					<tr>
-						<td class="first"><b>Results</b></td>
+						<td class="first"><b>Attributions</b></td>
 						<td>
-							
+							<ul>
+								<li><a href="http://stackoverflow.com/questions/11194287/convert-a-directory-structure-in-the-filesystem-to-json-with-node-js/11194896">Node.JS script</a></li>
+								<li><a href="https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd">Collapsible Tree diagram in D3 v4</a></li>
+								<li><a href="http://colorbrewer2.org/#type=sequential&scheme=Reds&n=4">ColorBrewer 2.0</a></li>
+								<li><a href="http://bl.ocks.org/d3noob/a22c42db65eb00d4e369">Simple d3.js HTML tooltips</a></li>
+							</ul>
 						</td>
 					</tr>
-					<tr>
-						<td class="first"><b>Conclusion</b></td>
-						<td>
-							
-						</td>
-					</tr>
-						
 				</table>
  			</div>
 
