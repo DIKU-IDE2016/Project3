@@ -1,3 +1,22 @@
+/*FOR THE TREE*/
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+/* END */
+
 h1, h2 {
 	text-align: center;
 }
@@ -21,47 +40,6 @@ h1 {
   padding-top: 20px;
 }
 
-.overlay {
-  fill: none;
-  pointer-events: all;
-}
-
-.focus circle {
-  fill: none;
-  stroke: green;
-}
-
-.ind_div {
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #333;
-}
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 2px;
-}
-
-.spring > .area {
-  fill: #A2D9CE;
-}
-
-.summer > .area {
-  fill: #F5B7B1;
-}
-
-.autumn > .area {
-  fill: #FCF3CF;
-}
-
-.winter > .area {
-  fill: #D6EAF8;
-}
-
-.season-title {
-  font-size: 20px;
-}
 
 .discussion{
   border-top: 1px solid black;
@@ -76,19 +54,6 @@ h1 {
   text-align: right;
 }
 
-#indiv_box table{
-  width: 100%;
-}
-#indiv_box table td{
-  padding: 20px;
-  vertical-align: top;
-}
-#indiv_box table td h4{
-  margin: 0;
-}
-#indiv_box table tr{
-  border-bottom: 1px solid black;
-}
 td.expand {
   width: 99%;
 }

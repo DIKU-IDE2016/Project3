@@ -1,0 +1,120 @@
+{
+  "name": "IDE",
+  "children": [
+    {
+      "name": "Course_book.pdf"
+    },
+    {
+      "name": "Project1",
+      "children": [
+        {
+          "name": "README.md"
+        },
+        {
+          "name": "bff.gif"
+        },
+        {
+          "name": "ed_viz.png"
+        },
+        {
+          "name": "ehsan_viz.png"
+        },
+        {
+          "name": "gb_viz.PNG"
+        },
+        {
+          "name": "index.html"
+        },
+        {
+          "name": "jscode.js"
+        },
+        {
+          "name": "style.css"
+        }
+      ]
+    },
+    {
+      "name": "Project2",
+      "children": [
+        {
+          "name": "d3",
+          "children": [
+            {
+              "name": "API.md"
+            },
+            {
+              "name": "CHANGES.md"
+            },
+            {
+              "name": "LICENSE"
+            },
+            {
+              "name": "README.md"
+            },
+            {
+              "name": "d3.js"
+            },
+            {
+              "name": "d3.min.js"
+            }
+          ]
+        },
+        {
+          "name": "dataset.csv"
+        },
+        {
+          "name": "index.html"
+        },
+        {
+          "name": "script.js"
+        },
+        {
+          "name": "style.css"
+        }
+      ]
+    },
+    {
+      "name": "Project3",
+      "children": [
+        {
+          "name": "d3",
+          "children": [
+            {
+              "name": "API.md"
+            },
+            {
+              "name": "CHANGES.md"
+            },
+            {
+              "name": "LICENSE"
+            },
+            {
+              "name": "README.md"
+            },
+            {
+              "name": "d3.js"
+            },
+            {
+              "name": "d3.min.js"
+            }
+          ]
+        },
+        {
+          "name": "dataset.json"
+        },
+        {
+          "name": "index.html"
+        },
+        {
+          "name": "makeDataset.js"
+        },
+        {
+          "name": "script.js"
+        },
+        {
+          "name": "style.css"
+        }
+      ]
+    }
+  ]
+}

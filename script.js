@@ -22,449 +22,191 @@ function openTab(evt, cityName) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 
-// Read in the data from the file called "dataset.csv"
-d3.csv("dataset.csv", function(error,dataset) {
-	
+d3.json("dataset.json", function(error, treeData) {
 	if (error){
 
 		console.log(error);
 	} else {
-		// initialize data storage
-		var average = [];
-		var spring = [];
-		var summer = [];
-		var autumn = [];
-		var winter = [];
-		
-		//assign values from CSV by looping over 
-		for (var i = 0; i < dataset.length; i++) {
+		    // Set the dimensions and margins of the diagram
+		var margin = {top: 20, right: 20, bottom: 20, left: 40},
+		    width = 1000 - margin.left - margin.right,
+		    height = 700 - margin.top - margin.bottom;
 
-			year = parseInt(dataset[i]["YEAR"]);
+		// append the svg object to the body of the page
+		// appends a 'group' element to 'svg'
+		// moves the 'group' element to the top left margin
+		var svg = d3.select("#vis2_div").append("svg")
+		    .attr("width", width + margin.right + margin.left)
+		    .attr("height", height + margin.top + margin.bottom)
+		  .append("g")
+		    .attr("transform", "translate("
+		          + margin.left + "," + margin.top + ")");
 
-			average.push({"year":year, "temperature": parseFloat(dataset[i]["metANN"])});
-			winter.push({"year":year, "temperature": parseFloat(dataset[i]["D-J-F"])});
-			spring.push({"year":year, "temperature": parseFloat(dataset[i]["M-A-M"])});
-			summer.push({"year":year, "temperature": parseFloat(dataset[i]["J-J-A"])});
-			autumn.push({"year":year, "temperature": parseFloat(dataset[i]["S-O-N"])});
-		};
+		var i = 0,
+		    duration = 750,
+		    root;
 
-		var seasonal = [];
-		seasonal["spring"] = spring;
-		seasonal["summer"] = summer;
-		seasonal["autumn"] = autumn;
-		seasonal["winter"] = winter;
+		// declares a tree layout and assigns the size
+		var treemap = d3.tree().size([height, width]);
 
-		//  ====================== First Plot ========================= //
+		// Assigns parent, children, height, depth
+		root = d3.hierarchy(treeData, function(d) { return d.children; });
+		root.x0 = height / 2;
+		root.y0 = 0;
 
-		//Firstly, we select the predefined SVG element and set its width, height and margins
-		var vis1 = d3.select("#vis1ualisation1"),
-	    WIDTH = 1000,
-	    HEIGHT = 500,
-	    MARGINS = {
-	        top: 20,
-	        right: 20,
-	        bottom: 20,
-	        left: 50
-	    },
-	    // here we define the ranges and domains of x and y scales
-	    xScale = d3.scaleLinear()
-	    			.range([MARGINS.left, WIDTH - MARGINS.right])
-	    			.domain([
-	    				Math.min.apply(null, average.map(function(a){return a.year;})),
-	    				Math.max.apply(null, average.map(function(a){return a.year;}))
-	    			]);
+		// Collapse after the second level
+		root.children.forEach(collapse);
 
-	    yScale = d3.scaleLinear()
-	    			.range([HEIGHT - MARGINS.top, MARGINS.bottom])
-	    			.domain([
-	    				Math.min.apply(null, average.map(function(a){return a.temperature;})),
-	    				Math.max.apply(null, average.map(function(a){return a.temperature;}))
-	    			]);
+		update(root);
 
-	    // define the axis
-	    xAxis = d3.axisBottom()
-		    .scale(xScale).tickFormat(d3.format("d")),
-		  
-		yAxis = d3.axisLeft()
-		    .scale(yScale);
+		// Collapse the node and all it's children
+		function collapse(d) {
+		  if(d.children) {
+		    d._children = d.children
+		    d._children.forEach(collapse)
+		    d.children = null
+		  }
+		}
 
-		// Append both axis
-		vis1.append("svg:g")
-		    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-		    .call(xAxis);
+		function update(source) {
 
-		vis1.append("svg:g")
-		    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-		    .call(yAxis);
+		  // Assigns the x and y position for the nodes
+		  var treeData = treemap(root);
 
-		// Append axis labels
-		vis1.append("text")
-		    .attr("class", "x label")
-		    .attr("text-anchor", "end")
-		    .attr("x", WIDTH-20)
-		    .attr("y", HEIGHT-25)
-		    .text("Year");
+		  // Compute the new tree layout.
+		  var nodes = treeData.descendants(),
+		      links = treeData.descendants().slice(1);
 
-		vis1.append("text")
-		    .attr("class", "y label")
-		    .attr("text-anchor", "end")
-		    .attr("y", 65)
-		    .attr("x", -20)
-		    .attr("transform", "rotate(-90)")
-		    .text("Temperature °C");
+		  // Normalize for fixed-depth.
+		  nodes.forEach(function(d){ d.y = d.depth * 180});
 
-		// generate the actual line
-		var lineGen = d3.line()
-		  .x(function(d) {
-		    return xScale(d.year);
-		  })
-		  .y(function(d) {
-		    return yScale(d.temperature);
+		  // ****************** Nodes section ***************************
+
+		  // Update the nodes...
+		  var node = svg.selectAll('g.node')
+		      .data(nodes, function(d) {return d.id || (d.id = ++i); });
+
+		  // Enter any new modes at the parent's previous position.
+		  var nodeEnter = node.enter().append('g')
+		      .attr('class', 'node')
+		      .attr("transform", function(d) {
+		        return "translate(" + source.y0 + "," + source.x0 + ")";
+		    })
+		    .on('click', click);
+
+		  // Add Circle for the nodes
+		  nodeEnter.append('circle')
+		      .attr('class', 'node')
+		      .attr('r', 1e-6)
+		      .style("fill", function(d) {
+		          return d._children ? "lightsteelblue" : "#fff";
+		      });
+
+		  // Add labels for the nodes
+		  nodeEnter.append('text')
+		      .attr("dy", ".35em")
+		      .attr("x", function(d) {
+		          return d.children || d._children ? -13 : 13;
+		      })
+		      .attr("text-anchor", function(d) {
+		          return d.children || d._children ? "end" : "start";
+		      })
+		      .text(function(d) { return d.data.name; });
+
+		  // UPDATE
+		  var nodeUpdate = nodeEnter.merge(node);
+
+		  // Transition to the proper position for the node
+		  nodeUpdate.transition()
+		    .duration(duration)
+		    .attr("transform", function(d) { 
+		        return "translate(" + d.y + "," + d.x + ")";
+		     });
+
+		  // Update the node attributes and style
+		  nodeUpdate.select('circle.node')
+		    .attr('r', 10)
+		    .style("fill", function(d) {
+		        return d._children ? "lightsteelblue" : "#fff";
+		    })
+		    .attr('cursor', 'pointer');
+
+
+		  // Remove any exiting nodes
+		  var nodeExit = node.exit().transition()
+		      .duration(duration)
+		      .attr("transform", function(d) {
+		          return "translate(" + source.y + "," + source.x + ")";
+		      })
+		      .remove();
+
+		  // On exit reduce the node circles size to 0
+		  nodeExit.select('circle')
+		    .attr('r', 1e-6);
+
+		  // On exit reduce the opacity of text labels
+		  nodeExit.select('text')
+		    .style('fill-opacity', 1e-6);
+
+		  // ****************** links section ***************************
+
+		  // Update the links...
+		  var link = svg.selectAll('path.link')
+		      .data(links, function(d) { return d.id; });
+
+		  // Enter any new links at the parent's previous position.
+		  var linkEnter = link.enter().insert('path', "g")
+		      .attr("class", "link")
+		      .attr('d', function(d){
+		        var o = {x: source.x0, y: source.y0}
+		        return diagonal(o, o)
+		      });
+
+		  // UPDATE
+		  var linkUpdate = linkEnter.merge(link);
+
+		  // Transition back to the parent element position
+		  linkUpdate.transition()
+		      .duration(duration)
+		      .attr('d', function(d){ return diagonal(d, d.parent) });
+
+		  // Remove any exiting links
+		  var linkExit = link.exit().transition()
+		      .duration(duration)
+		      .attr('d', function(d) {
+		        var o = {x: source.x, y: source.y}
+		        return diagonal(o, o)
+		      })
+		      .remove();
+
+		  // Store the old positions for transition.
+		  nodes.forEach(function(d){
+		    d.x0 = d.x;
+		    d.y0 = d.y;
 		  });
 
-		// Add the line to SVG
-		vis1.append('svg:path')
-		  .attr('d', lineGen(average))
-		  .attr('stroke', 'green')
-		  .attr('stroke-width', 2)
-		  .attr('fill', 'none');
+		  // Creates a curved (diagonal) path from parent to the child nodes
+		  function diagonal(s, d) {
 
-		// ==========================================================
-		// Added on mouseover event
-		// Credit: https://bl.ocks.org/mbostock/3902569
-		// var focus = vis1.append("g")
-		//   .attr("class", "focus")
-		//   .style("display", "none");
+		    path = `M ${s.y} ${s.x}
+		            C ${(s.y + d.y) / 2} ${s.x},
+		              ${(s.y + d.y) / 2} ${d.x},
+		              ${d.y} ${d.x}`
 
-		// focus.append("circle")
-		//   .attr("r", 4.5);
+		    return path
+		  }
 
-		// focus.append("text")
-		//   .attr("x", 9)
-		//   .attr("dy", ".35em");
-
-		// vis1.append("rect")
-		//   .attr("class", "overlay")
-		//   .attr("width", WIDTH)
-		//   .attr("height", HEIGHT)
-		//   .on("mouseover", function() { focus.style("display", null); })
-		//   .on("mouseout", function() { focus.style("display", "none"); })
-		//   .on("mousemove", mousemove);
-
-		// var bisectDate = d3.bisector(function(d) { return d.year; }).left;
-		
-		// function mousemove() {
-		// 	var x0 = xScale.invert(d3.mouse(this)[0]),
-		// 	    i = bisectDate(data, x0, 1),
-		// 	    d0 = data[i - 1],
-		// 	    d1 = data[i],
-		// 	    d = x0 - d0.year > d1.year - x0 ? d1 : d0;
-		// 	focus.attr("transform", "translate(" + xScale(d.year) + "," + yScale(d.temperature) + ")");
-		// 	console.log("D0 temp: "+ d0.temperature+" ; year: "+ d0.year);
-		// 	console.log("D1 temp: "+ d1.temperature+" ; year: "+ d1.year);
-		// 	console.log("I: " + i);
-		// 	focus.select("text").text(d.temperature+" °C at " + d.year);
-		// };
-
-
-		// ==========================================================
-		//  ====================== Second Plot ========================= //
-
-		var vis2 = d3.select("#vis1ualisation2")
-						.attr("transform",
-		          		  	  "translate(" + MARGINS.left + "," + MARGINS.top + ")")
-						.append("g");
-
-		var gs = [];
-		for (var i = 0; i < 4; i++) {
-			
-		}
-
-		var WIDTH = 900,
-			HEIGHT = 200,
-			MARGINS = {
-		    	top: 25,
-		    	right: 25,
-		    	bottom: 25,
-		    	left: 30
-			},
-			counter = 0,
-			season;
-
-		for (var key in seasonal) {
-
-			season = seasonal[key];
-
-			g = vis2.append("g")
-					.attr("class",key)
-					.attr("transform",
-		          		  "translate(" + MARGINS.left + "," + (MARGINS.top+(counter*200)) + ")");
-
-			var x = d3.scaleLinear()
-		    			.range([MARGINS.left, WIDTH - MARGINS.right])
-		    			.domain([
-		    				Math.min.apply(null, season.map(function(a){return a.year;})),
-		    				Math.max.apply(null, season.map(function(a){return a.year;}))
-		    			]);
-
-		    var y = d3.scaleLinear()
-		    			.range([HEIGHT - MARGINS.top, MARGINS.bottom])
-		    			.domain([
-		    				Math.min.apply(null, season.map(function(a){return a.temperature;})),
-		    				Math.max.apply(null, season.map(function(a){return a.temperature;}))
-		    			]);
-
-			// define the area
-			var area = d3.area()
-			    .x(function(d) { return x(d.year); })
-			    .y0(HEIGHT - MARGINS.bottom)
-			    .y1(function(d) { return y(d.temperature); });
-
-			// define the line
-			var valueline = d3.line()
-			    .x(function(d) { return x(d.year); })
-			    .y(function(d) { return y(d.temperature); });
-
-			;
-
-			// add the area
-			g.append("path")
-			    .data([season])
-			    .attr("class", "area")
-			    .attr("d", area);
-
-			// add the valueline path.
-			var lin = g.append("path")
-			    	    .data([season])
- 						.attr("stroke-width", 2)
- 						.attr("fill", "none")
-			    		.attr("d", valueline);
-
-			if(counter == 0)
-				lin.attr("stroke", "#229954");
-			else if(counter == 1)
-				lin.attr("stroke", "#EC7063");
-			else if(counter == 2)
-				lin.attr("stroke", "#F7DC6F");
-			else 
-				lin.attr("stroke", "#85C1E9");
-
-			xAxis = d3.axisBottom()
-			    .scale(x).tickFormat(d3.format("d")),
-			  
-			yAxis = d3.axisLeft()
-			    .scale(y);
-
-			g.append("svg:g")
-			    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-			    .call(xAxis);
-
-			g.append("svg:g")
-			    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-			    .call(yAxis);
-
-			    // Append axis labels
-			g.append("text")
-			    .attr("class", "x label")
-			    .attr("text-anchor", "end")
-			    .attr("x", WIDTH-35)
-			    .attr("y", HEIGHT-30)
-			    .text("Year");
-
-			g.append("text")
-			    .attr("class", "y label")
-			    .attr("text-anchor", "end")
-			    .attr("y", -15)
-			    .attr("x", -20)
-			    .attr("transform", "rotate(-90)")
-			    .text("Temperature °C");
-
-			vis2.append("text")
-			    .attr("class", "season-title")
-			    .attr("text-anchor", "end")
-			    .attr("x", WIDTH+100)
-			    .attr("y", 150+(counter*200))
-			    .text(key);
-
-			counter++;
-		}
-
-		var vertical = d3.select("#vis1ualisation2")
-		      .append("div")
-		      .attr("class", "remove")
-		      .style("position", "absolute")
-		      .style("z-index", "190")
-		      .style("width", "10px")
-		      .style("height", "380px")
-		      .style("top", "10px")
-		      .style("bottom", "30px")
-		      .style("left", "0px")
-		      .style("background", "#000");
-		d3.select("#vis1ualisation2")
-		    .on("mousemove", function(){  
-		       mousex = d3.mouse(this);
-		       mousex = mousex[0] + 5;
-		       vertical.style("left", mousex + "px" )})
-		    .on("mouseover", function(){  
-		       mousex = d3.mouse(this);
-		       mousex = mousex[0] + 5;
-		       vertical.style("left", mousex + "px")});
-	//  ====================== Third Plot ========================= //
-		var jan = [];
-		var feb = [];
-		var mar = [];
-		var apr = [];
-		var may = [];
-		var jun = [];
-		var jul = [];
-		var aug = [];
-		var sep= [];
-		var oct = [];
-		var nov = [];
-		var dec = [];
-		//assign values from CSV by looping over 
-		for (var i = 0; i < dataset.length; i++) {
-			year = parseInt(dataset[i]["YEAR"]);
-			// add month
-			
-			jan.push({"year":year, "temperature": parseFloat(dataset[i]["JAN"])});
-			feb.push({"year":year, "temperature": parseFloat(dataset[i]["FEB"])});
-			mar.push({"year":year, "temperature": parseFloat(dataset[i]["MAR"])});
-			apr.push({"year":year, "temperature": parseFloat(dataset[i]["APR"])});
-			may.push({"year":year, "temperature": parseFloat(dataset[i]["MAY"])});
-			jun.push({"year":year, "temperature": parseFloat(dataset[i]["JUN"])});
-			jul.push({"year":year, "temperature": parseFloat(dataset[i]["JUL"])});
-			aug.push({"year":year, "temperature": parseFloat(dataset[i]["AUG"])});
-			sep.push({"year":year, "temperature": parseFloat(dataset[i]["SEP"])});
-			oct.push({"year":year, "temperature": parseFloat(dataset[i]["OCT"])});
-			nov.push({"year":year, "temperature": parseFloat(dataset[i]["NOV"])});
-			dec.push({"year":year, "temperature": parseFloat(dataset[i]["DEC"])});
-		};
-		var lineGen = d3.line()
-			  .x(function(d) {
-			    return xScale(d.year);
-			  })
-			  .y(function(d) {
-			    return yScale(d.temperature);
-			  });
-		var vis3 = d3.select("#vis1ualisation3"),
-	    WIDTH = 1000,
-	    HEIGHT = 500,
-	    MARGINS = {
-	        top: 20,
-	        right: 20,
-	        bottom: 20,
-	        left: 50
-	    };
-		function originalLegend(newData) {
-
-			xScale = d3.scaleLinear()
-			    		.range([MARGINS.left, WIDTH - MARGINS.right])
-			    		.domain([
-			    			Math.min.apply(null, newData.map(function(a){return a.year;})),
-			    			Math.max.apply(null, newData.map(function(a){return a.year;}))
-			    			]);
-
-		    yScale = d3.scaleLinear()
-		    			.range([HEIGHT - MARGINS.top, MARGINS.bottom])
-		    			.domain([
-		    				Math.min.apply(null, newData.map(function(a){return a.temperature;})),
-		    				Math.max.apply(null, newData.map(function(a){return a.temperature;}))
-		    			]);
-
-		    // define the axis
-		    xAxis = d3.axisBottom().scale(xScale).tickFormat(d3.format("d"));		  
-			yAxis = d3.axisLeft().scale(yScale);
-
-			// Append both axis
-			vis3.append("svg:g")
-				.attr("class", "xAxis")
-			    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-			    .call(xAxis);
-
-			vis3.append("svg:g")
-				.attr("class", "yAxis")
-			    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-			    .call(yAxis);
-
-			// Append axis labels
-			vis3.append("text")
-			    .attr("class", "xLabel")
-			    .attr("text-anchor", "end")
-			    .attr("x", WIDTH-20)
-			    .attr("y", HEIGHT-25)
-			    .text("Year");
-
-			vis3.append("text")
-			    .attr("class", "yLabel")
-			    .attr("text-anchor", "end")
-			    .attr("y", 65)
-			    .attr("x", -20)
-			    .attr("transform", "rotate(-90)")
-			    .text("Temperature °C");
-
-			// generate the actual line
-			
-
-			vis3.append('svg:path')
-			  .attr("class","line3")
-			  .attr('d', lineGen(newData))
-			  .attr('stroke', 'green')
-			  .attr('stroke-width', 2)
-			  .attr('fill', 'none');
-
-
-		}
-		// generate initial legend
-		originalLegend(jan);
-		function updateLegend(newData) {
-			xScale = d3.scaleLinear()
-			    		//.range([MARGINS.left, WIDTH - MARGINS.right])
-			    		.domain([
-			    			Math.min.apply(null, newData.map(function(a){return a.year;})),
-			    			Math.max.apply(null, newData.map(function(a){return a.year;}))
-			    			]);
-
-		    yScale = d3.scaleLinear()
-		    			//.range([HEIGHT - MARGINS.top, MARGINS.bottom])
-		    			.domain([
-		    				Math.min.apply(null, newData.map(function(a){return a.temperature;})),
-		    				Math.max.apply(null, newData.map(function(a){return a.temperature;}))
-		    			]);
-
-		    // define the axis
-		    xAxis = d3.axisBottom().scale(xScale).tickFormat(d3.format("d"));		  
-			yAxis = d3.axisLeft().scale(yScale);
-
-			// Append both axis
-			var svg = d3.select("vis1ualisation3").transition();
-			// Append both axis
-			svg.select(".xAxis")
-				.duration(500)
-			    .call(xAxis);
-
-			svg.select(".yAxis")
-				.duration(500)
-			    .call(yAxis);
-			
-			// generate the actual line
-
-			svg.select('.line3')
-			   .duration(0)
-			   .attr('d', lineGen(newData));
-			// vis3.append('svg:path')
-			//   .attr("class","line3")
-			//   .attr('d', lineGen(newData))
-			//   .attr('stroke', 'green')
-			//   .attr('stroke-width', 2)
-			//   .attr('fill', 'none');
-		}
-
-		// handle on click event
-		d3.select('#opts')
-		  .on('change', function() {
-		    var newData = eval(d3.select(this).property('value'));
-		    updateLegend(newData);
-		 });
-	}
+		  // Toggle children on click.
+		  function click(d) {
+		    if (d.children) {
+		        d._children = d.children;
+		        d.children = null;
+		      } else {
+		        d.children = d._children;
+		        d._children = null;
+		      }
+		    update(d);
+		  }
+		}		
+	};
 });

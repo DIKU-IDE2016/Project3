@@ -4,6 +4,23 @@
 		<meta charset="utf-8">
 	    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<style>
+		.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+		</style>
 		<title>IDE Project 3</title>
 		<script type="text/javascript" src="d3/d3.min.js"></script>
 	</head>
@@ -21,165 +38,52 @@
 	  			</table>
 	  		</div>
 
-			<h1><small>How has the weather changed over the past 100 years?</small></h1>
+			<h1><small>Networks/Trees</small></h1>
 	  	
 	    	<ul class="tab">
-			  	<li><a href="javascript:void(0)" class="tablinks" id="defaultOpen" onclick="openTab(event, 'vis1_box')">Visualization 1</a></li>
-			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'vis2_box')">Visualization 2</a></li>
-			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'vis3_box')">Visualization 3</a></li>
-			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'indiv_box')">Individual Part</a></li>
+			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'vis1_box')">Review</a></li>
+			  	<li><a href="javascript:void(0)" class="tablinks" id="defaultOpen" onclick="openTab(event, 'vis2_box')">Tree</a></li>
+			  	<li><a href="javascript:void(0)" class="tablinks" id="defaultOpen" onclick="openTab(event, 'vis2_box')">Network</a></li>
 			</ul>
 
 	    	<div id="vis1_box" class="tabcontent">
-	        	<div class="jumbotron" id="vis1_div">
-			 		<h2>Temperature changes during last 100 years in Copenhagen</h2>
-	 				<svg id="vis1ualisation1" width="1000" height="500"></svg>
-	        	</div>
-	        	<h3>Discussion</h3>
-				<table class="discussion">
-					<tr>
-						<td class="first"><b>Motivation</b></td>
-						<td>We decided to visualize the average yearly temperature changes during the past 100 years in Copenhagen in order to see if the ovarall average has risen or fallen during the last century.</td>
-					</tr>
-					<tr>
-						<td class="first"><b>Method</b></td>
-						<td>
-						The dataset was retrieved from <a href="http://data.giss.nasa.gov/tmp/gistemp/STATIONS/tmp_612061860000_14_0/station.txt"> here. </a>  The text file was opened and the spaces were replaced with a comma to remake this file into a CSV formated file, because that is the most common data format for datasets. Later we realized, that the dataset was formated as a TSV, but the CSV has already been made, so we decided to work on that. The decision was to plot the average temperature of each year starting from 1915 up until 2015, a span of 100 years, to see how the average temperature has risen or fallen and what is the tendency of it. 
-						</td>
-					</tr>
-					<tr>
-						<td class="first"><b>Results</b></td>
-						<td>Judging by the line graph created, a tentency can be seen that the average temperature is slowly rising during past century. The highest average temperature was 10.43°C in 2007, but the lowest was 6.46°C in 1942.</td>
-					</tr>
-					<tr>
-						<td class="first"><b>Conclusion</b></td>
-						<td>
-						This visualization is helpful, because it is providing a great overview and trends of how the temperature has changed in Copenhagen. This visualization could benefit from mouseover event where the actual data is shown when moving the mouse and possibly some color changes indicating that its hotter when reaching a certain value.
-						</td>
-					</tr>
-						
-				</table>
-
-	 				 
+	    		REVIEW			 
  			</div>
  			<div id="vis2_box" class="tabcontent">
         		<div class="jumbotron" id ="vis2_div">
-		 			<h2>Seasonal Temperature Changes in past 100 years</h2>
- 					<svg id="vis1ualisation2" width="1000" height="850"></svg>
+        		<h2>Directory tree of IDE projects</h2>
         		</div>
 				<h3>Discussion</h3>
 				<table class="discussion">
 					<tr>
 						<td class="first"><b>Motivation</b></td>
-						<td>We decided to visualize the trends in temperature changes broken down based on season, in order to see if these changes correspond across different seasons.</td>
-					</tr>
-					<tr>
-						<td class="first"><b>Method</b></td>
-						<td>In order to do that we read in the seasonal average data from the CSV dataset file and store them in different arrays, and use these arrays to plot the area line chart for each season.</td>
-					</tr>
-					<tr>
-						<td class="first"><b>Results</b></td>
-						<td>The resulting charts show that changes in temperature are not similar across different seasons in most of the years. For example, if the average temperature is lower in spring of year 1991 comapared to spring of 1994, that might not be the case in other seasons for those two years.</td>
-					</tr>
-					<tr>
-						<td class="first"><b>Conclusion</b></td>
-						<td>In short, this visualization is very helpful as it provides a more detailed overview of changes in temperature and let the viewer compare the trends across different seasons easily. A elegant improvement for this visualization would be to add some interactivity to appear a vertical line as viewer moves its cursor on the chart. This would make it very easy to compare trends for different seasons in a particular year.</td>
-					</tr>
-						
-				</table>
- 			</div>
-
- 			<div id="vis3_box" class="tabcontent">
- 				<select id = "opts">
-						<option value="jan" selected="selected">JAN</option>
-						<option value="feb" >FEB</option> 
-						<option value="mar">MAR</option>
-						<option value="apr">APR</option>
-						<option value="may">MAY</option>
-						<option value="jun">JUN</option>
-						<option value="jul">JUL</option>
-						<option value="aug">AUG</option>
-						<option value="sep">SEP</option>
-						<option value="oct">OCT</option>
-						<option value="nov">NOV</option>
-						<option value="dec">DEC</option>
-				</select>   
-        		<div class="jumbotron" id ="vis3_div">
-		 			<h2>Monthly Temperature Changes for the past 100 years</h2>
-
-
- 					<svg id="vis1ualisation3" width="1000" height="500"></svg>
-        		</div>
-				<h3>Discussion</h3>
-				<table class="discussion">
-					<tr>
-						<td class="first"><b>Motivation</b></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="first"><b>Method</b></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="first"><b>Results</b></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="first"><b>Conclusion</b></td>
-						<td></td>
-					</tr>
-						
-				</table>
- 			</div>
- 			<div id="indiv_box" class="tabcontent">
- 				<table>
-					<tr>
-						<td class="fitcell"><h4>Eduards Klavins</h4></td>
-						<td class="expand">
-						
-
-							<h4 style="text-align: center;">Answer to Question 3.</h4>
-							</br>
-							<p>
-							<strong>How big data sets are reasonable to load in d3 visualizations? </strong></br>
-							D3 does not put any limits on the dataset loaded, but it will of course take a lot of time for the client to retrieve the dataset if the size of it is too large. That being said, I believe that a "reasonable size" is also dependent on your average site visitor and their internet connection, because some have 10 times faster connection speeds than others. Naturally, the only limits are the ones set by browser memory size or Node.js memory if doing server-side calculations. You have to ask yourself if you have many SVG elements in your visualization and, if so, you should think how they can be reduced so that the chart genreation on client-side is faster.
-							</p>
-							<p>
-							<strong>What types of visualizations does a limit like that exclude?  </strong></br>
-							These limits do not allow us to plot anything with large datasets at once. But if we know how to work around these issues(read below), then there are no limits.
-							</p>
-							<p>
-							<strong>Give examples of visualizations that must be based on large data sets and discuss how they deal with this.</strong></br>
-							The way to deal with big data in d3 is by aggregating the dataset and storing it on the server if the data is not highly dynamic. The aggregation is usually done with some statistical operations If it is dynamic, then there is a choice - weather we will have a lot of users querying the server (then the best choice is to do the aggregation in clients' browser), but if the users visiting the page are low, then the best option is to do the aggregation on the server side and then serve the client with the aggregated dataset so it loads faster. Also, it is possible to pre-render the data on server and only then serve it to client.
-							</br>
-							A great solution is to use interactivity and only retrieve the data after a certain interaction. A great and simple example is Google maps that only retrieves the image after performing zoom interaction.
-							</br>
-							Another way is to fetch only the most recent data (for example for time series visualizations) with a library like <a href="http://square.github.io/cubism/">Cubism.js</a>.
-							</br>
-							One other interesting way is down-sampling the data served to client. Then data is placed in buckets and only one data point is chosen from it. This <a href="https://github.com/d3fc/d3fc-sample">d3fc-sample</a> library has the possibility to do it. It is also possible to retrieve data from databases like MySQL, Microsoft SQL server and similar. Examples: </br>
-							<ul>
-								<li><a href="http://blog.vida.io/2014/07/06/bigquery-big-data-visualization-with-d3-dot-js/">Here</a> is an example of querying a 4GB+ dataset with 350 million rows efficiently.</li>
-								<li><a href="http://d3fc.github.io/d3fc-sample/">Sampling demo</a></li>
-								<li><a href="https://square.github.io/cubism/">Time series data retrieval</a></li>
-								<li><a href="https://www.google.dk/maps">Google maps</a> only retrieves more data when interacting (zooming in).</li>
-							</ul>
-							</p>
-							<p>
-							<strong>Could you have reduced the size of the data sets in this assignment? </strong></br> 
-							In my opinion, the dataset is small enough (12kB on disk) and is served to client quite fast. Also, all the data is being used for the 3 visualizations we have. If we would just need the first visualization for example, then there would be no problem to reducing the dataset, because we only need 2 columns - the year and the yearly average and that's it.
-							</p>
+						<td>
+							
 						</td>
 					</tr>
 					<tr>
-						<td class="fitcell"><h4>Ehsan Khaveh</h4></td>
-						<td class="expand">t vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</td>
+						<td class="first"><b>Method</b></td>
+						<td>
+							
+						</td>
 					</tr>
 					<tr>
-						<td class="fitcell"><h4>Olugbenga Oti</h4></td>
-						<td class="expand">Gbenga is typing...</td>
+						<td class="first"><b>Results</b></td>
+						<td>
+							
+						</td>
 					</tr>
+					<tr>
+						<td class="first"><b>Conclusion</b></td>
+						<td>
+							
+						</td>
+					</tr>
+						
 				</table>
-    		</div>
+ 			</div>
+
+ 	
     	</div>
 	</body>
 	<script type="text/javascript" src="script.js">
