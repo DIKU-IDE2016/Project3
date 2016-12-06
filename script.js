@@ -114,14 +114,6 @@ d3.json("dataset.json", function(error, treeData) {
 					text += "<strong>Type: </strong>" + d.data.type + "<br/>";
 					text += "<strong>Path: </strong>" + d.data.path;
 				}
-
-			 //  var g = d3.select(this); // The node
-			 //  // The class is used to remove the additional text later
-			 //  var info = g.append('html')
-			 //     .classed('info', true)
-			 //     .attr('x', 13)
-			 //     .attr('y', 20)
-			 //     .html(text);
             div.transition()
 				.duration(500)	
 				.style("opacity", 0);
