@@ -72,24 +72,29 @@
 						<td class="first"><b>Dataset</b></td>
 						<td>
 						<p>
-						We chose to display directories as a tree visualization, because it is the easiest to understand and directories with files have hierarchical structure. <br/>
-						We made this dataset ourselves with the help of a small Node.JS script that lists the directories recursively in a JSON format. The script can be found in our GitHub repository <a href="https://github.com/DIKU-IDE2016/Project3/blob/master/makeDataset.js">here</a>. It was improved to add extra attributes for each file in order to have information to display in tooltips. 
+						We chose to display directories as a tree visualization, because it is the easiest to understand and directories with files have hierarchical structure.</p>
+						<p>We made this dataset ourselves with the help of a small Node.JS script that lists the directories recursively in a JSON format. The script can be found in our GitHub repository <a href="https://github.com/DIKU-IDE2016/Project3/blob/master/makeDataset.js">here</a>. It was improved to add extra attributes for each file in order to have information to display in tooltips. 
 						</p>
 						</td>
 					</tr>
 					<tr>
 						<td class="first"><b>Motivation</b></td>
 						<td>
-						Motivate the choice of visualization idiom, and other choices you made (e.g., color, channels, marks).
-
+						<p>The way how directories are ordered, is actually called "directory tree", it's already in the name. Trees are the best tool to display hierarchical structures, because it has parent and child nodes and each node can have multiple or none children. The root node is the one at the top (in our case - "IDE"). </p>
+						<p> We decided to display the second level nodes at the beginning, so that when the page is opened, the only thing would not be just the root node (that could be hard to spot) or all the nodes opened up (that could be confusing if there are many children to each node). By seeing the second level when starting, we have a clear overview of the main structure and what the visualization is about. </p>
+						<p>We chose to use magnitude channels in order to make a distinction between what is a directory and what is a file. The darker ones are directories and the lighter ones are files. As for the links between nodes, we went with something visible but very neutral, so it does not stand out over the nodes themselves.</p>
+						<p>In order to increase complexity and usefulness a bit, we have added tooltips when moving the mouse over any of the nodes. This tooltip contains more detail about each node. For files it shows its type, path, size and last edited time, but for the directories, it shows the type and path. The background of the tooltip was added (in a neutral color), because otherwise the text was mixing up with the names of files/folders and was difficult to read.</p>
 						</td>
 					</tr>
 					<tr>
 						<td class="first"><b>Improvements</b></td>
 						<td>
+							<ul>
+								<li>The background shape of the tooltip could be dynamically resized based on the amount of content inside. </li>
+								<li>If we have a large tree structure, it would be great if it opens up nodes outside of our margins, then the whole view would could be shifted with dragging mouse. </li>
+							</ul>
 							it could move further, 
-							when clicking on type=file, show some popup with attributes
-							on mouseover show attributes
+							The background shape of the tooltip could be resized.
 						</td>
 					</tr>
 					<tr>
