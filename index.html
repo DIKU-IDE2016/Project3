@@ -36,6 +36,7 @@
 		</style>
 		<title>IDE Project 3</title>
 		<script type="text/javascript" src="d3_v3/d3.min.js"></script>
+		<script src="d3_v3/d3plus.min.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -56,7 +57,7 @@
 	    	<ul class="tab">
 			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'vis1_box')">Review</a></li>
 			  	<li><a href="javascript:void(0)" class="tablinks" id="defaultOpen" onclick="openTab(event, 'vis2_box')">Tree</a></li>
-			  	<li><a href="javascript:void(0)" class="tablinks" id="defaultOpen" onclick="openTab(event, 'vis2_box')">Network</a></li>
+			  	<li><a href="javascript:void(0)" class="tablinks" id="defaultOpen" onclick="openTab(event, 'vis3_box')">Network</a></li>
 			</ul>
 
 	    	<div id="vis1_box" class="tabcontent">
@@ -69,7 +70,7 @@
  			</div>
  			<div id="vis2_box" class="tabcontent">
         		<div class="jumbotron" id ="vis2_div">
-        		<h2>Directory tree of IDE projects</h2>
+        			<h2>Directory tree of IDE projects</h2>
         		</div>
 				<h3>Discussion</h3>
 				<table class="discussion">
@@ -112,6 +113,41 @@
 								<li><a href="http://bl.ocks.org/d3noob/a22c42db65eb00d4e369">Simple d3.js HTML tooltips</a></li>
 							</ul>
 						</td>
+					</tr>
+				</table>
+ 			</div>
+
+ 			<div id="vis3_box" class="tabcontent">
+        		<div class="jumbotron" id ="vis3_div">
+        			<h2>Network of Neighbouring Countries in South America</h2>
+        		</div>
+				<h3>Discussion</h3>
+				<table class="discussion">
+					<tr>
+						<td class="first"><b>Dataset</b></td>
+						<td>
+						<p>
+						The dataset for this network visualization was extracted from <a href="https://en.wikipedia.org/wiki/List_of_countries_and_territories_by_land_borders" target="_blank">wikipedia page</a> including list of countries, their total length of land border, their land border neighbours and border length with each of these neighbours. </p>
+						<p> 
+						</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="first"><b>Motivation</b></td>
+						<td>
+						<p>Many people do not know the countries in south America except the large ones like Brazil and Argentina. Our motivation for this visualization was to create a network that would show the countries situated in this region, their sizes compared to each other and their neighbours using connecting edges. </p>
+						<p>The size of the country nodes corresponds to the total length if land border that country has. Being an interactive chart, viewers can interact with it by clicking on a country node which results in the view being zoomed on that particular country and highlighting the neighbours for that country by turning the corresponding edges to red colour. In addition, a legend appears on the top right corner of the screen which displays the neighbouring countries to this node in a list view, with each list item being clickable and having the same effect of clicking on the node on the network.
+						</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="first"><b>Improvements</b></td>
+						<td>
+						<p>The visualisation already includes some interactivity elements (as discussed) that make it very easy to interpret. However, there are several things that can be done in order to improve it even further. Firstly, some weights can be added to the connecting edges to indicate the size of the border between two countries. For instance, the edge connecting Argentina and Chile can show a small tooltip with the number of kilometres the length of border is between these two countries when the cursor is on it. 
+						</p>
+						<p>
+						In addition to the edges, the nodes could have other relevant attributes besides the size that represents total length of land border. For example, the colour of the nodes which are picked randomly at the moment could be chosen to be correspond to the flag of the countries. Or, the nodes can turn into the shape of the country when they are clicked on. In that way the visualization is even easier to read and interpret. </p>
+
 					</tr>
 				</table>
  			</div>
