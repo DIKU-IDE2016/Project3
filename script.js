@@ -76,11 +76,48 @@ d3.json("dataset.json", function(error, treeData) {
 		  var node = svg.selectAll("g.node")
 			  .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
+		// Define 'div' for tooltips
+		var div = d3.select("body")
+			.append("div")  // declare the tooltip div 
+			.attr("class", "tooltip")              // apply the 'tooltip' class
+			.style("opacity", 0);                  // set the opacity to nil
+
 		  // Enter any new nodes at the parent's previous position.
 		  var nodeEnter = node.enter().append("g")
 			  .attr("class", "node")
 			  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
 			  .on("click", click);
+			 // UNCOMMENT THIS FOR TOOLTIPS and remove the semicolon in line above
+			// .on("mouseover", function(d) {
+				
+			// 	var text = "";
+			// 	if (d.type ==="File") {
+			// 		text += "<strong>Type: </strong>" + d.type + "<br/>";
+			// 		text += "<strong>Path: </strong>" + d.path + "<br/>";
+			// 		text += "<strong>Size: </strong>" + d.size + " MB<br/>";
+			// 		text += "<strong>Last edited: </strong>" + d.mtime;
+			// 	} else {
+			// 		text += "<strong>Type: </strong>" + d.type + "<br/>";
+			// 		text += "<strong>Path: </strong>" + d.path;
+			// 	}
+   //          div.transition()
+			// 	.duration(500)	
+			// 	.style("opacity", 0);
+			// div.transition()
+			// 	.duration(200)	
+			// 	.style("opacity", 1.0);	
+			// div	.html(text)	 
+			// 	.style("left", (d3.event.pageX+15) + "px")			 
+			// 	.style("top", (d3.event.pageY - 28) + "px");
+
+			// })
+			// .on("mouseout", function(d) {
+			//   // Remove the info text on mouse out.
+   //            div.transition()		
+   //              .duration(500)		
+   //              .style("opacity", 0);	
+   // 			});
+
 
 		  nodeEnter.append("circle")
 			  .attr("r", 1e-6)
