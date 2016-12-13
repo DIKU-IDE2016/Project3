@@ -61,8 +61,9 @@
 			</ul>
 
 	    	<div id="vis1_box" class="tabcontent">
+<<<<<<< HEAD
 	    		<p>
-	    		Our group had to review <a href="https://rcoor.github.io/IDEassignment2/index.html">group 6.</a> The layout of the page is very simple and could be made visually more understandable, possibly with a tab for each visualization 
+	    		Our group had to review <a target="_blank" href="https://rcoor.github.io/IDEassignment2/index.html">group 6.</a> The layout of the page is very simple and could be made visually more understandable, possibly with a tab for each visualization 
 	    		</p>
 	    		<p>
 	    		Bar Plot: The graph goes out of borders, which looks weird and we believe that the X axis is overcrowded with values, thus hard to read the necessary one. A suggestion would be having every 5th year displayed and have only small line indicators for the rest in between. Only Y axis has a label, the X axis is missing one, feels inconsistent.
@@ -74,6 +75,44 @@
 	    		<p>
 	    		You gave a good evaluation of your work and have ideas on how to improve it.
 	    		</p>
+=======
+	    		<h3>Evaluation</h3>
+	    		<table class="discussion">
+					<tr>
+						<td class="a"><b>Bar Plot</b></td>
+						<td>
+						<p>
+	    				Our group had to review <a href="https://rcoor.github.io/IDEassignment2/index.html">group 6.</a> The layout of the page is very simple and could be made visually more understandable, possibly with a tab for each visualization 
+	    				</p>
+						<p>
+						The graph goes out of borders, which looks weird and we believe that the X axis is overcrowded with values, thus hard to read the necessary one. A suggestion would be having every 5th year displayed and have only small line indicators for the rest in between. Only the Y axis has a label, the X axis is missing one, feels inconsistent.
+						</p>
+						<p>
+	    		 		Also, when dealing with data in a time series, it is better to use a line plot as this makes it easier to see a trend in the data. Bar plots are better when you want to emphasize each individual year and not what goes on over 100 years. 
+	    		 		</p>
+	    		 		<p>
+	    		 		That being said, following the lines of the bar plot, it is easy to see that the temperatures in recent years have been above the average temperature over the years which is an indicator that it is warmer now than before.	
+						</p>
+						</td>
+					</tr>
+	    			<tr>
+	    				<td class="a"><b>Multiline Plot</b></td>
+						<td>
+						<p>
+						There is no line for the X axis just as in the previous graph. Just as stated in the lecture, a multiline plot with more than a few lines is difficult to understand. It does not adequately describe the data.
+						</p>
+						</td>
+	    			</tr>
+	    			<tr>
+	    				<td class="a"><b>Conclusion</b></td>
+						<td>
+						<p>
+						You gave a good evaluation of your work and have ideas on how to improve it.
+						</p>
+						</td>
+	    			</tr>
+	    		</table>	 
+>>>>>>> a9a3e85180a9733b5006f60f05a283880c067d78
  			</div>
  			<div id="vis2_box" class="tabcontent">
         		<div class="jumbotron" id ="vis2_div">
@@ -86,7 +125,7 @@
 						<td>
 						<p>
 						We chose to display directories as a tree visualization, because it is the easiest to understand and directories with files have hierarchical structure.</p>
-						<p>We made this dataset ourselves with the help of a small Node.JS script that lists the directories recursively in a JSON format. The script can be found in our GitHub repository <a href="https://github.com/DIKU-IDE2016/Project3/blob/master/makeDataset.js">here</a>. It was improved to add extra attributes for each file in order to have information to display in tooltips. 
+						<p>We made this dataset ourselves with the help of a small Node.JS script that lists the directories recursively in a JSON format. The script can be found in our GitHub repository <a href="https://github.com/DIKU-IDE2016/Project3/blob/master/makeDataset.js" target="_blank">here</a>. It was improved to add extra attributes for each file in order to have information to display in tooltips. 
 						</p>
 						</td>
 					</tr>
@@ -96,28 +135,26 @@
 						<p>The way how directories are ordered, is actually called "directory tree", it's already in the name. Trees are the best tool to display hierarchical structures, because it has parent and child nodes and each node can have multiple or none children. The root node is the one at the top (in our case - "IDE"). </p>
 						<p> We decided to display the second level nodes at the beginning, so that when the page is opened, the only thing would not be just the root node (that could be hard to spot) or all the nodes opened up (that could be confusing if there are many children to each node). By seeing the second level when starting, we have a clear overview of the main structure and what the visualization is about. </p>
 						<p>We chose to use magnitude channels in order to make a distinction between what is a directory and what is a file. The darker ones are directories and the lighter ones are files. As for the links between nodes, we went with something visible but very neutral, so it does not stand out over the nodes themselves.</p>
-						<p>In order to increase complexity and usefulness a bit, we have added tooltips when moving the mouse over any of the nodes. This tooltip contains more detail about each node. For files it shows its type, path, size and last edited time, but for the directories, it shows the type and path. The background of the tooltip was added (in a neutral color), because otherwise the text was mixing up with the names of files/folders and was difficult to read.</p>
 						</td>
 					</tr>
 					<tr>
 						<td class="first"><b>Improvements</b></td>
 						<td>
 							<ul>
-								<li>The background shape of the tooltip could be dynamically resized based on the amount of content inside. </li>
 								<li>If we have a large tree structure, it would be great if it opens up nodes outside of our margins, then the whole view would could be shifted with dragging mouse. </li>
+								<li>In order to increase complexity and usefulness a bit, we could have added tooltips when moving the mouse over any of the nodes. This tooltip would contain more detail about each node. For files it shows its type, path, size and last edited time, but for the directories, it shows the type and path. The background of the tooltip was added (in a neutral color), because otherwise the text was mixing up with the names of files/folders and was difficult to read. (This feature is actually implemented, but commented out due to strange behaviour (sometimes the nodes would become unclickable)).</li>
+								<li>The background shape of the tooltip could be dynamically resized based on the amount of content inside. </li>
 							</ul>
-							it could move further, 
-							The background shape of the tooltip could be resized.
 						</td>
 					</tr>
 					<tr>
 						<td class="first"><b>Attributions</b></td>
 						<td>
 							<ul>
-								<li><a href="http://stackoverflow.com/questions/11194287/convert-a-directory-structure-in-the-filesystem-to-json-with-node-js/11194896">Node.JS script</a></li>
-								<li><a href="https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd">Collapsible Tree diagram in D3 v4</a></li>
-								<li><a href="http://colorbrewer2.org/#type=sequential&scheme=Reds&n=4">ColorBrewer 2.0</a></li>
-								<li><a href="http://bl.ocks.org/d3noob/a22c42db65eb00d4e369">Simple d3.js HTML tooltips</a></li>
+								<li><a href="http://stackoverflow.com/questions/11194287/convert-a-directory-structure-in-the-filesystem-to-json-with-node-js/11194896" target="_blank">Node.JS script</a></li>
+								<li><a href="https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd" target="_blank">Collapsible Tree diagram in D3 v4</a></li>
+								<li><a href="http://colorbrewer2.org/#type=sequential&scheme=Reds&n=4" target="_blank">ColorBrewer 2.0</a></li>
+								<li><a href="http://bl.ocks.org/d3noob/a22c42db65eb00d4e369" target="_blank">Simple d3.js HTML tooltips</a></li>
 							</ul>
 						</td>
 					</tr>
@@ -155,6 +192,15 @@
 						<p>
 						In addition to the edges, the nodes could have other relevant attributes besides the size that represents total length of land border. For example, the colour of the nodes which are picked randomly at the moment could be chosen to be correspond to the flag of the countries. Or, the nodes can turn into the shape of the country when they are clicked on. In that way the visualization is even easier to read and interpret. </p>
 
+					</tr>
+					<tr>
+						<td class="first"><b>Attributions</b></td>
+						<td>
+							<ul>
+								<li><a href="http://d3plus.org/examples/basic/9042919" target="_blank">D3 Plus Simple Network Diagram</a></li>
+								<li><a href="https://github.com/alexandersimoes/d3plus/wiki/Network" target="_blank">D3 Plus Network Diagram Documentation</a></li>
+							</ul>
+						</td>
 					</tr>
 				</table>
  			</div>
